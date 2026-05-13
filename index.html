@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Wedding Invitation | Aurel & Fajar</title>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+<style>
+
+/* =========================================================
+   ROOT VARIABLES
+========================================================= */
+
+:root{
+    --bg: #f5f1eb;
+    --ivory: #f8f6f2;
+    --beige: #e9dfd2;
+    --dusty-blue: #8fa4b8;
+    --navy: #2b3645;
+    --text: #233040;
+    --muted: #7f8a96;
+
+    --glass: rgba(255,255,255,0.12);
+    --glass-border: rgba(255,255,255,0.18);
+
+    --shadow:
+        0 10px 40px rgba(0,0,0,0.12);
+
+    --radius-xl: 30px;
+    --radius-lg: 24px;
+    --radius-md: 18px;
+
+    --transition: all .45s ease;
+}
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Inter', sans-serif;
+    background:
+        linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)),
+        url('https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1400&auto=format&fit=crop');
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+    min-height:100vh;
+    overflow-x:hidden;
+    color:var(--text);
+}
+
+/* Hide scrollbar */
+::-webkit-scrollbar{
+    width:0;
+    height:0;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    backdrop-filter:blur(4px);
+    z-index:-1;
+}
+
+/* =========================================================
+   MOBILE APP CONTAINER
+========================================================= */
+
+.app{
+    width:100%;
+    max-width:420px;
+    margin:auto;
+    background:var(--bg);
+    min-height:100vh;
+    position:relative;
+    overflow:hidden;
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.1),
+        0 40px 80px rgba(0,0,0,.35);
+}
+
+/* =========================================================
+   OPENING COVER
+========================================================= */
+
+.cover{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    background:
+        linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.7)),
+        url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1400&auto=format&fit=crop');
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:30px;
+    transition:1.2s ease;
+}
+
+.cover.hide{
+    opacity:0;
+    visibility:hidden;
+}
+
+.cover-content{
+    text-align:center;
+    color:white;
+    animation:fadeUp 1.4s ease;
+}
+
+.cover-sub{
+    letter-spacing:4px;
+    text-transform:uppercase;
+    font-size:12px;
+    opacity:.8;
+    margin-bottom:18px;
+}
+
+.cover h1{
+    font-family:'Cormorant Garamond', serif;
+    font-size:64px;
+    line-height:1;
+    font-weight:600;
+    margin-bottom:24px;
+}
+
+.guest{
+    margin-bottom:35px;
+    color:rgba(255,255,255,.88);
+    line-height:1.8;
+}
+
+.open-btn{
+    border:none;
+    padding:16px 34px;
+    border-radius:999px;
+    font-size:15px;
+    font-weight:600;
+    color:white;
+    cursor:pointer;
+    transition:var(--transition);
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,.18);
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+.open-btn:hover{
+    transform:translateY(-4px);
+    background:rgba(255,255,255,.22);
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    height:100vh;
+    position:relative;
+    display:flex;
+    align-items:flex-end;
+    padding:40px 30px 90px;
+    color:white;
+    overflow:hidden;
+}
+
+.hero-bg{
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,.15)),
+        url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=1400&auto=format&fit=crop');
+    background-size:cover;
+    background-position:center;
+    transform:scale(1.08);
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    animation:fadeUp 1.2s ease;
+}
+
+.hero-label{
+    letter-spacing:4px;
+    text-transform:uppercase;
+    font-size:12px;
+    margin-bottom:16px;
+    opacity:.8;
+}
+
+.hero h2{
+    font-family:'Cormorant Garamond', serif;
+    font-size:62px;
+    line-height:.95;
+    margin-bottom:18px;
+    font-weight:600;
+}
+
+.hero-date{
+    font-size:16px;
+    opacity:.9;
+}
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+section{
+    padding:80px 24px;
+    position:relative;
+}
+
+.section-title{
+    font-family:'Cormorant Garamond', serif;
+    font-size:42px;
+    text-align:center;
+    margin-bottom:18px;
+    color:var(--navy);
+}
+
+.section-subtitle{
+    text-align:center;
+    color:var(--muted);
+    font-size:14px;
+    margin-bottom:42px;
+    line-height:1.8;
+}
+
+/* =========================================================
+   GLASS CARD
+========================================================= */
+
+.glass-card{
+    background:rgba(255,255,255,.35);
+    border:1px solid rgba(255,255,255,.45);
+    backdrop-filter:blur(20px);
+    border-radius:var(--radius-xl);
+    padding:34px;
+    box-shadow:var(--shadow);
+}
+
+/* =========================================================
+   BRIDE & GROOM
+========================================================= */
+
+.couple{
+    display:flex;
+    flex-direction:column;
+    gap:28px;
+}
+
+.person{
+    text-align:center;
+}
+
+.person img{
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    object-fit:cover;
+    margin-bottom:20px;
+    border:4px solid rgba(255,255,255,.6);
+}
+
+.person h3{
+    font-family:'Cormorant Garamond', serif;
+    font-size:38px;
+    color:var(--navy);
+    margin-bottom:8px;
+}
+
+.person p{
+    color:var(--muted);
+    line-height:1.8;
+    font-size:14px;
+}
+
+.and{
+    text-align:center;
+    font-family:'Cormorant Garamond', serif;
+    font-size:40px;
+    color:var(--dusty-blue);
+}
+
+/* =========================================================
+   COUNTDOWN
+========================================================= */
+
+.countdown-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+}
+
+.count-item{
+    padding:22px 10px;
+    border-radius:24px;
+    text-align:center;
+    background:
+        linear-gradient(135deg,
+        rgba(255,255,255,.45),
+        rgba(255,255,255,.18));
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,.3);
+}
+
+.count-item h4{
+    font-size:28px;
+    margin-bottom:8px;
+    color:var(--navy);
+}
+
+.count-item span{
+    font-size:11px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:var(--muted);
+}
+
+/* =========================================================
+   EVENT SECTION
+========================================================= */
+
+.event-grid{
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+}
+
+.event-card{
+    position:relative;
+    overflow:hidden;
+}
+
+.event-type{
+    font-size:12px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--dusty-blue);
+    margin-bottom:14px;
+}
+
+.event-card h3{
+    font-family:'Cormorant Garamond', serif;
+    font-size:34px;
+    margin-bottom:16px;
+    color:var(--navy);
+}
+
+.event-detail{
+    line-height:2;
+    color:var(--muted);
+    font-size:14px;
+}
+
+.divider{
+    width:70px;
+    height:1px;
+    background:rgba(0,0,0,.1);
+    margin:24px auto;
+}
+
+/* =========================================================
+   QUOTE
+========================================================= */
+
+.quote{
+    text-align:center;
+}
+
+.quote p{
+    font-family:'Cormorant Garamond', serif;
+    font-size:34px;
+    line-height:1.5;
+    color:var(--navy);
+    margin-bottom:24px;
+}
+
+.quote span{
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.8;
+}
+
+/* =========================================================
+   MAPS
+========================================================= */
+
+.maps iframe{
+    width:100%;
+    height:320px;
+    border:none;
+    border-radius:24px;
+    margin-bottom:22px;
+}
+
+.venue{
+    text-align:center;
+}
+
+.venue h4{
+    font-family:'Cormorant Garamond', serif;
+    font-size:32px;
+    margin-bottom:10px;
+    color:var(--navy);
+}
+
+.venue p{
+    color:var(--muted);
+    line-height:1.8;
+    font-size:14px;
+}
+
+/* =========================================================
+   CLOSING
+========================================================= */
+
+.closing{
+    text-align:center;
+    padding-bottom:140px;
+}
+
+.closing h3{
+    font-family:'Cormorant Garamond', serif;
+    font-size:52px;
+    margin-bottom:22px;
+    color:var(--navy);
+}
+
+.closing p{
+    color:var(--muted);
+    line-height:2;
+}
+
+/* =========================================================
+   FLOATING NAVIGATION
+========================================================= */
+
+.bottom-nav{
+    position:fixed;
+    bottom:18px;
+    left:50%;
+    transform:translateX(-50%);
+    width:calc(100% - 32px);
+    max-width:390px;
+    z-index:1000;
+}
+
+.nav-inner{
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    padding:16px 14px;
+    border-radius:999px;
+    background:rgba(255,255,255,.18);
+    border:1px solid rgba(255,255,255,.25);
+    backdrop-filter:blur(24px);
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
+}
+
+.nav-item{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--navy);
+    transition:var(--transition);
+    text-decoration:none;
+    position:relative;
+}
+
+.nav-item.active{
+    background:white;
+    transform:translateY(-18px);
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.nav-item i{
+    font-size:18px;
+}
+
+/* =========================================================
+   MUSIC BUTTON
+========================================================= */
+
+.music-btn{
+    position:fixed;
+    right:24px;
+    bottom:110px;
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    border:none;
+    cursor:pointer;
+    z-index:1000;
+
+    background:rgba(255,255,255,.2);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,.25);
+
+    color:var(--navy);
+    font-size:18px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.18);
+
+    transition:var(--transition);
+}
+
+.music-btn.playing i{
+    animation:spin 5s linear infinite;
+}
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+.fade-up{
+    opacity:0;
+    transform:translateY(40px);
+    transition:1s ease;
+}
+
+.fade-up.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes spin{
+    from{ transform:rotate(0deg); }
+    to{ transform:rotate(360deg); }
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(min-width:768px){
+
+    .hero h2{
+        font-size:76px;
+    }
+
+    .section-title{
+        font-size:52px;
+    }
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="app">
+
+    <!-- =====================================================
+         OPENING COVER
+    ====================================================== -->
+
+    <div class="cover" id="cover">
+        <div class="cover-content">
+            <div class="cover-sub">The Wedding Of</div>
+
+            <h1>Aurel<br>& Fajar</h1>
+
+            <div class="guest">
+                Kepada Yth.<br>
+                <strong id="guestName">Tamu Undangan</strong>
+            </div>
+
+            <button class="open-btn" id="openInvitation">
+                <i class="fa-solid fa-envelope-open"></i>
+                &nbsp; Buka Undangan
+            </button>
+        </div>
+    </div>
+
+    <!-- =====================================================
+         HERO SECTION
+    ====================================================== -->
+
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+
+        <div class="hero-content">
+            <div class="hero-label">
+                Wedding Invitation
+            </div>
+
+            <h2>
+                Aurel<br>
+                & Fajar
+            </h2>
+
+            <div class="hero-date">
+                Minggu, 20 Desember 2026
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================
+         BRIDE & GROOM
+    ====================================================== -->
+
+    <section id="couple" class="fade-up">
+
+        <h2 class="section-title">
+            Bride & Groom
+        </h2>
+
+        <p class="section-subtitle">
+            Dengan memohon rahmat dan ridho Allah SWT,
+            kami bermaksud menyelenggarakan acara pernikahan kami.
+        </p>
+
+        <div class="glass-card couple">
+
+            <div class="person">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800&auto=format&fit=crop" alt="">
+                <h3>Aurel</h3>
+                <p>
+                    Putri Pertama dari<br>
+                    Bapak Ahmad & Ibu Sarah
+                </p>
+            </div>
+
+            <div class="and">&</div>
+
+            <div class="person">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=800&auto=format&fit=crop" alt="">
+                <h3>Fajar</h3>
+                <p>
+                    Putra Pertama dari<br>
+                    Bapak Hendra & Ibu Ratna
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- =====================================================
+         COUNTDOWN
+    ====================================================== -->
+
+    <section class="fade-up">
+
+        <h2 class="section-title">
+            Countdown
+        </h2>
+
+        <div class="countdown-grid">
+
+            <div class="count-item">
+                <h4 id="days">00</h4>
+                <span>Days</span>
+            </div>
+
+            <div class="count-item">
+                <h4 id="hours">00</h4>
+                <span>Hours</span>
+            </div>
+
+            <div class="count-item">
+                <h4 id="minutes">00</h4>
+                <span>Minutes</span>
+            </div>
+
+            <div class="count-item">
+                <h4 id="seconds">00</h4>
+                <span>Seconds</span>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- =====================================================
+         EVENT SECTION
+    ====================================================== -->
+
+    <section id="event" class="fade-up">
+
+        <h2 class="section-title">
+            Wedding Event
+        </h2>
+
+        <p class="section-subtitle">
+            Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila
+            Bapak/Ibu/Saudara/i berkenan hadir.
+        </p>
+
+        <div class="event-grid">
+
+            <div class="glass-card event-card">
+
+                <div class="event-type">
+                    Akad Nikah
+                </div>
+
+                <h3>Akad</h3>
+
+                <div class="event-detail">
+                    Minggu, 20 Desember 2026<br>
+                    08.00 WIB - Selesai<br>
+                    Grand Royal Ballroom Jakarta
+                </div>
+
+            </div>
+
+            <div class="glass-card event-card">
+
+                <div class="event-type">
+                    Wedding Reception
+                </div>
+
+                <h3>Reception</h3>
+
+                <div class="event-detail">
+                    Minggu, 20 Desember 2026<br>
+                    11.00 WIB - 15.00 WIB<br>
+                    Grand Royal Ballroom Jakarta
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- =====================================================
+         QUOTE
+    ====================================================== -->
+
+    <section class="fade-up">
+
+        <div class="glass-card quote">
+
+            <p>
+                “Dan di antara tanda-tanda kekuasaan-Nya ialah
+                Dia menciptakan untukmu pasangan hidup dari jenismu sendiri.”
+            </p>
+
+            <span>
+                QS. Ar-Rum : 21
+            </span>
+
+        </div>
+
+    </section>
+
+    <!-- =====================================================
+         MAPS
+    ====================================================== -->
+
+    <section id="maps" class="fade-up">
+
+        <h2 class="section-title">
+            Location
+        </h2>
+
+        <div class="glass-card maps">
+
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126920.49598754113!2d106.75812658203126!3d-6.229728!2m3!1f0!2f0!3f0!"
+                loading="lazy">
+            </iframe>
+
+            <div class="venue">
+                <h4>Grand Royal Ballroom</h4>
+
+                <p>
+                    Jl. Sudirman No. 88<br>
+                    Jakarta Selatan
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- =====================================================
+         CLOSING
+    ====================================================== -->
+
+    <section class="closing fade-up">
+
+        <h3>
+            Thank You
+        </h3>
+
+        <p>
+            Atas kehadiran dan doa restunya,<br>
+            kami ucapkan terima kasih.
+            <br><br>
+            Kami yang berbahagia,
+            <br>
+            Aurel & Fajar
+        </p>
+
+    </section>
+
+</div>
+
+<!-- =========================================================
+     FLOATING NAVIGATION
+========================================================= -->
+
+<div class="bottom-nav">
+
+    <div class="nav-inner">
+
+        <a href="#home" class="nav-item active">
+            <i class="fa-solid fa-house"></i>
+        </a>
+
+        <a href="#couple" class="nav-item">
+            <i class="fa-solid fa-heart"></i>
+        </a>
+
+        <a href="#event" class="nav-item">
+            <i class="fa-solid fa-calendar"></i>
+        </a>
+
+        <a href="#maps" class="nav-item">
+            <i class="fa-solid fa-location-dot"></i>
+        </a>
+
+    </div>
+
+</div>
+
+<!-- =========================================================
+     MUSIC BUTTON
+========================================================= -->
+
+<button class="music-btn" id="musicBtn">
+    <i class="fa-solid fa-music"></i>
+</button>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=wedding-110624.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+/* =========================================================
+   GUEST NAME FROM URL
+========================================================= */
+
+const urlParams = new URLSearchParams(window.location.search);
+const guest = urlParams.get('to');
+
+if(guest){
+    document.getElementById('guestName').textContent =
+        decodeURIComponent(guest.replace(/\+/g, ' '));
+}
+
+/* =========================================================
+   OPEN INVITATION
+========================================================= */
+
+const openBtn = document.getElementById('openInvitation');
+const cover = document.getElementById('cover');
+const music = document.getElementById('bgMusic');
+const musicBtn = document.getElementById('musicBtn');
+
+openBtn.addEventListener('click', () => {
+
+    cover.classList.add('hide');
+
+    music.play();
+
+    musicBtn.classList.add('playing');
+
+    document.body.style.overflow = 'auto';
+
+});
+
+/* =========================================================
+   MUSIC BUTTON
+========================================================= */
+
+musicBtn.addEventListener('click', () => {
+
+    if(music.paused){
+        music.play();
+        musicBtn.classList.add('playing');
+    }else{
+        music.pause();
+        musicBtn.classList.remove('playing');
+    }
+
+});
+
+/* =========================================================
+   COUNTDOWN TIMER
+========================================================= */
+
+const weddingDate = new Date("December 20, 2026 08:00:00").getTime();
+
+const countdown = setInterval(() => {
+
+    const now = new Date().getTime();
+
+    const distance = weddingDate - now;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("days").innerHTML = days;
+    document.getElementById("hours").innerHTML = hours;
+    document.getElementById("minutes").innerHTML = minutes;
+    document.getElementById("seconds").innerHTML = seconds;
+
+}, 1000);
+
+/* =========================================================
+   FADE UP ANIMATION
+========================================================= */
+
+const fadeElements = document.querySelectorAll('.fade-up');
+
+const observer = new IntersectionObserver((entries) => {
+
+    entries.forEach(entry => {
+
+        if(entry.isIntersecting){
+            entry.target.classList.add('show');
+        }
+
+    });
+
+}, {
+    threshold:0.2
+});
+
+fadeElements.forEach(el => observer.observe(el));
+
+/* =========================================================
+   ACTIVE NAVIGATION
+========================================================= */
+
+const sections = document.querySelectorAll("section");
+const navItems = document.querySelectorAll(".nav-item");
+
+window.addEventListener("scroll", () => {
+
+    let current = "";
+
+    sections.forEach(section => {
+
+        const sectionTop = section.offsetTop;
+
+        if(scrollY >= sectionTop - 200){
+            current = section.getAttribute("id");
+        }
+
+    });
+
+    navItems.forEach(item => {
+
+        item.classList.remove("active");
+
+        if(item.getAttribute("href").includes(current)){
+            item.classList.add("active");
+        }
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
