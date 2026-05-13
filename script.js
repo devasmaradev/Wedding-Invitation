@@ -1,316 +1,440 @@
-// script.js
+document.addEventListener('DOMContentLoaded', () => {
 
-// =======================
-// GUEST NAME
-// =======================
+    /* ===================================================== */
+    /* INITIAL STATE */
+    /* ===================================================== */
 
-const urlParams = new URLSearchParams(window.location.search);
-const guest = urlParams.get("to");
+    // Lock scroll saat cover masih tampil
+    document.body.classList.add('lock-scroll');
 
-const guestName = guest
-  ? decodeURIComponent(guest.replace(/\+/g, " "))
-  : "Tamu Undangan";
+    /* ===================================================== */
+    /* ELEMENT SELECTORS */
+    /* ===================================================== */
 
-document.getElementById("guestName").innerText = guestName;
-document.getElementById("footerGuest").innerText = guestName;
+    const btnOpen =
+        document.getElementById('btn-open');
 
-// =======================
-// OPEN COVER
-// =======================
+    const cover =
+        document.getElementById('cover');
 
-const openBtn = document.getElementById("openInvitation");
-const cover = document.getElementById("cover");
+    const mainContent =
+        document.getElementById('main-content');
 
-const music = document.getElementById("bgMusic");
-const musicBtn = document.getElementById("musicBtn");
+    const audio =
+        document.getElementById('bg-music');
 
-music.volume = 0.7;
+    const musicToggle =
+        document.getElementById('music-toggle');
 
-// status music dari user
-let musicPlaying = false;
+    const navLinks =
+        document.querySelectorAll('.nav-link');
 
-// status sebelum tab hidden
-let wasPlayingBeforeHidden = false;
+    const tabs =
+        document.querySelectorAll('.tab-content');
 
-openBtn.addEventListener("click", async () => {
+    const navbar =
+        document.querySelector('.bottom-nav');
 
-  window.scrollTo(0, 0);
+    const container =
+        document.querySelector('.content-container');
 
-  cover.classList.add("fade-out");
+    /* ===================================================== */
+    /* VARIABLES */
+    /* ===================================================== */
 
-  document.body.style.overflowY = "auto";
+    let lastScrollTop = 0;
 
-  try{
+    let isMusicManuallyPaused = false;
 
-    await music.play();
+    let ticking = false;
 
-    musicPlaying = true;
+    /* ===================================================== */
+    /* 1. OPEN INVITATION */
+    /* ===================================================== */
 
-    musicBtn.classList.add("playing");
+    btnOpen.addEventListener('click', () => {
 
-  }catch(err){
+        btnOpen.disabled = true;
 
-    console.log("Autoplay blocked");
+        /* ============================================= */
+        /* UNLOCK SCROLL */
+        /* ============================================= */
 
-  }
+        document.body.classList.remove('lock-scroll');
 
-});
+        /* ============================================= */
+        /* COVER ANIMATION */
+        /* ============================================= */
 
-// =======================
-// MUSIC CONTROL
-// =======================
+        cover.classList.add('pushed-up');
 
-musicBtn.addEventListener("click", async () => {
+        /* ============================================= */
+        /* SHOW MAIN CONTENT */
+        /* ============================================= */
 
-  try{
+        mainContent.classList.remove('hidden');
 
-    if(music.paused){
+        mainContent.classList.add('active');
 
-      await music.play();
+        /* ============================================= */
+        /* SHOW NAVBAR & MUSIC BUTTON */
+        /* ============================================= */
 
-      musicPlaying = true;
+        requestAnimationFrame(() => {
 
-      musicBtn.classList.add("playing");
+            navbar.classList.add('show');
 
-    }else{
+            musicToggle.classList.add('show');
 
-      music.pause();
+        });
 
-      musicPlaying = false;
+        /* ============================================= */
+        /* PLAY MUSIC */
+        /* ============================================= */
 
-      musicBtn.classList.remove("playing");
+        if (audio) {
+
+            // Unmute audio
+            audio.muted = false;
+
+            // Play audio
+            audio.play().catch(err => {
+
+                console.log(
+                    'Audio gagal diputar:',
+                    err
+                );
+
+            });
+
+            // Aktifkan animasi icon
+            musicToggle.classList.add('rotating');
+
+        }
+
+        /* ============================================= */
+        /* HIDE COVER AFTER ANIMATION */
+        /* ============================================= */
+
+        const hideCover = () => {
+
+            cover.style.display = 'none';
+
+        };
+
+        cover.addEventListener(
+            'transitionend',
+            (e) => {
+
+                if (e.propertyName !== 'transform') {
+                    return;
+                }
+
+                hideCover();
+
+            },
+            { once: true }
+        );
+
+        // Fallback jika transition gagal
+        setTimeout(hideCover, 1200);
+
+    });
+
+    /* ===================================================== */
+    /* 2. TAB NAVIGATION */
+    /* ===================================================== */
+
+    navLinks.forEach(link => {
+
+        link.addEventListener('click', function () {
+
+            /* ========================================= */
+            /* TARGET */
+            /* ========================================= */
+
+            const targetId =
+                this.getAttribute('data-target');
+
+            const targetSection =
+                document.getElementById(targetId);
+
+            if (!targetSection) {
+                return;
+            }
+
+            /* ========================================= */
+            /* UPDATE ACTIVE NAV */
+            /* ========================================= */
+
+            navLinks.forEach(l => {
+
+                l.classList.remove('active');
+
+                l.setAttribute(
+                    'aria-selected',
+                    'false'
+                );
+
+            });
+
+            this.classList.add('active');
+
+            this.setAttribute(
+                'aria-selected',
+                'true'
+            );
+
+            /* ========================================= */
+            /* AUTO CENTER ACTIVE MENU */
+            /* ========================================= */
+
+            const navRect =
+                navbar.getBoundingClientRect();
+
+            const linkRect =
+                this.getBoundingClientRect();
+
+            const scrollLeft =
+                navbar.scrollLeft +
+                linkRect.left -
+                navRect.left -
+                (navRect.width / 2) +
+                (linkRect.width / 2);
+
+            navbar.scrollTo({
+
+                left: scrollLeft,
+
+                behavior: 'smooth'
+
+            });
+
+            /* ========================================= */
+            /* SWITCH TAB */
+            /* ========================================= */
+
+            tabs.forEach(tab => {
+
+                tab.classList.remove('active');
+
+            });
+
+            targetSection.classList.add('active');
+
+            /* ========================================= */
+            /* RESET SCROLL */
+            /* ========================================= */
+
+            if (container) {
+
+                container.scrollTo({
+
+                    top: 0,
+
+                    behavior: 'smooth'
+
+                });
+
+            }
+
+        });
+
+    });
+
+    /* ===================================================== */
+    /* 3. MUSIC CONTROL */
+    /* ===================================================== */
+
+    musicToggle.addEventListener('click', () => {
+
+        /* ============================================= */
+        /* PLAY MUSIC */
+        /* ============================================= */
+
+        if (audio.paused) {
+
+            audio.play().catch(err => {
+
+                console.log(
+                    'Audio gagal diputar:',
+                    err
+                );
+
+            });
+
+            isMusicManuallyPaused = false;
+
+            musicToggle.classList.add('rotating');
+
+        }
+
+        /* ============================================= */
+        /* PAUSE MUSIC */
+        /* ============================================= */
+
+        else {
+
+            audio.pause();
+
+            isMusicManuallyPaused = true;
+
+            musicToggle.classList.remove('rotating');
+
+        }
+
+    });
+
+    /* ===================================================== */
+    /* 4. PAGE VISIBILITY */
+    /* ===================================================== */
+
+    document.addEventListener(
+        'visibilitychange',
+        () => {
+
+            if (!audio) {
+                return;
+            }
+
+            /* ========================================= */
+            /* TAB HIDDEN */
+            /* ========================================= */
+
+            if (document.hidden) {
+
+                audio.pause();
+
+                musicToggle.classList.remove(
+                    'rotating'
+                );
+
+            }
+
+            /* ========================================= */
+            /* TAB ACTIVE AGAIN */
+            /* ========================================= */
+
+            else {
+
+                // Hanya play lagi jika user
+                // tidak pause manual
+
+                if (
+                    cover.classList.contains(
+                        'pushed-up'
+                    ) &&
+                    !isMusicManuallyPaused
+                ) {
+
+                    audio.play().catch(err => {
+
+                        console.log(
+                            'Audio gagal diputar:',
+                            err
+                        );
+
+                    });
+
+                    musicToggle.classList.add(
+                        'rotating'
+                    );
+
+                }
+
+            }
+
+        }
+    );
+
+    /* ===================================================== */
+    /* 5. AUTO HIDE NAVBAR ON SCROLL */
+    /* ===================================================== */
+
+    if (container && navbar) {
+
+        container.addEventListener(
+            'scroll',
+            () => {
+
+                // Gunakan requestAnimationFrame
+                // agar scroll event lebih ringan
+
+                if (!ticking) {
+
+                    window.requestAnimationFrame(
+                        () => {
+
+                            /* ===================== */
+                            /* SCROLL VALUES */
+                            /* ===================== */
+
+                            let scrollTop =
+                                container.scrollTop;
+
+                            let scrollDelta =
+                                scrollTop -
+                                lastScrollTop;
+
+                            if (
+                                Math.abs(scrollDelta) < 5
+                            ) {
+
+                                ticking = false;
+
+                                return;
+
+                            }
+
+                            /* ===================== */
+                            /* HIDE NAVBAR */
+                            /* ===================== */
+
+                            if (
+                                scrollDelta > 15 &&
+                                scrollTop > 100
+                            ) {
+
+                                navbar.classList.add(
+                                    'nav-hidden'
+                                );
+
+                            }
+
+                            /* ===================== */
+                            /* SHOW NAVBAR */
+                            /* ===================== */
+
+                            else {
+
+                                navbar.classList.remove(
+                                    'nav-hidden'
+                                );
+
+                            }
+
+                            /* ===================== */
+                            /* SAVE LAST SCROLL */
+                            /* ===================== */
+
+                            lastScrollTop =
+                                scrollTop <= 0
+                                    ? 0
+                                    : scrollTop;
+
+                            ticking = false;
+
+                        }
+                    );
+
+                    ticking = true;
+
+                }
+
+            },
+            { passive: true }
+        );
 
     }
-
-  }catch(err){
-
-    console.log("Music error");
-
-  }
-
-});
-
-// =======================
-// TAB VISIBILITY CONTROL
-// =======================
-
-document.addEventListener("visibilitychange", async () => {
-
-  // saat tab ditinggalkan
-  if(document.hidden){
-
-    // simpan status sebelumnya
-    wasPlayingBeforeHidden = !music.paused;
-
-    // pause music
-    music.pause();
-
-    musicBtn.classList.remove("playing");
-
-  }else{
-
-    // saat kembali ke tab
-    if(wasPlayingBeforeHidden && musicPlaying){
-
-      try{
-
-        await music.play();
-
-        musicBtn.classList.add("playing");
-
-      }catch(err){
-
-        console.log("Resume blocked");
-
-      }
-
-    }
-
-  }
-
-});
-
-// =======================
-// COUNTDOWN
-// =======================
-
-const targetDate = new Date("December 20, 2026 08:00:00").getTime();
-
-const countdown = () => {
-
-  const now = new Date().getTime();
-  const distance = targetDate - now;
-
-  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-  document.getElementById("days").innerText = days;
-  document.getElementById("hours").innerText = hours;
-  document.getElementById("minutes").innerText = minutes;
-  document.getElementById("seconds").innerText = seconds;
-
-};
-
-setInterval(countdown, 1000);
-countdown();
-
-// =======================
-// REVEAL ON SCROLL
-// =======================
-
-const reveals = document.querySelectorAll(".reveal");
-
-const observer = new IntersectionObserver((entries) => {
-
-  entries.forEach((entry) => {
-
-    if(entry.isIntersecting){
-      entry.target.classList.add("active");
-    }
-
-  });
-
-},{
-  threshold:0.5,
-  rootMargin:"0px 0px -100px 0px"
-});
-
-reveals.forEach((el) => observer.observe(el));
-
-// =======================
-// COPY TO CLIPBOARD
-// =======================
-
-const copyTargets = document.querySelectorAll(".copy-target");
-
-copyTargets.forEach((item) => {
-
-  item.addEventListener("click", async () => {
-
-    const text = item.dataset.copy;
-
-    await navigator.clipboard.writeText(text);
-
-    const original = item.innerHTML;
-
-    item.innerHTML = `
-      <h3>Berhasil Disalin</h3>
-      <span>${text}</span>
-    `;
-
-    setTimeout(() => {
-      item.innerHTML = original;
-    }, 1500);
-
-  });
-
-});
-
-// =======================
-// GOOGLE CALENDAR
-// =======================
-
-const calendarBtn = document.getElementById("calendarBtn");
-
-const startDate = "20261220T010000Z";
-const endDate = "20261220T050000Z";
-
-const calendarUrl =
-  `https://calendar.google.com/calendar/render?action=TEMPLATE` +
-  `&text=Wedding+Aurel+%26+Fajar` +
-  `&dates=${startDate}/${endDate}` +
-  `&details=Wedding+Invitation+Aurel+dan+Fajar` +
-  `&location=Grand+Emerald+Hall+Jakarta`;
-
-calendarBtn.href = calendarUrl;
-
-// =======================
-// DUMMY WISHES
-// =======================
-
-const dummyWishes = [
-  {
-    name: "Rina",
-    message: "Semoga menjadi keluarga yang sakinah mawaddah warahmah."
-  },
-  {
-    name: "Budi",
-    message: "Selamat menempuh hidup baru!"
-  },
-  {
-    name: "Dewi",
-    message: "Bahagia selalu untuk kalian berdua."
-  }
-];
-
-const wishList = document.getElementById("wishList");
-
-function renderWishes(){
-
-  wishList.innerHTML = "";
-
-  dummyWishes.forEach((wish) => {
-
-    const item = document.createElement("div");
-
-    item.classList.add("wish-item");
-
-    item.innerHTML = `
-      <h4>${wish.name}</h4>
-      <p>${wish.message}</p>
-    `;
-
-    wishList.appendChild(item);
-
-  });
-
-}
-
-renderWishes();
-
-// =======================
-// RSVP SUBMIT
-// =======================
-
-const rsvpForm = document.getElementById("rsvpForm");
-
-rsvpForm.addEventListener("submit", (e) => {
-
-  e.preventDefault();
-
-  const inputs = rsvpForm.querySelectorAll("input, textarea");
-
-  const newWish = {
-    name: inputs[0].value,
-    message: inputs[1].value
-  };
-
-  dummyWishes.unshift(newWish);
-
-  renderWishes();
-
-  rsvpForm.reset();
-
-});
-
-// =======================
-// RESET SCROLL ON REFRESH
-// =======================
-
-if ("scrollRestoration" in history) {
-  history.scrollRestoration = "manual";
-}
-
-window.addEventListener("load", () => {
-
-  // paksa ke atas
-  window.scrollTo(0, 0);
-
-  // pastikan tetap di atas
-  setTimeout(() => {
-    window.scrollTo(0, 0);
-  }, 10);
 
 });
